@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Hub local de ferramentas: Conversor PNG/WebP, Organizador de Pastas e Gerador de QR Code.">
+  <title>Hub de Programas</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ════════════════════ NAVBAR ════════════════════ -->
+  <nav class="navbar" id="navbar">
+    <a href="#hero" class="navbar-brand">⚡ HUB DE PROGRAMAS</a>
+    <ul class="navbar-links">
+      <li>
+        <a href="#conversor" id="nav-conversor">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M4 16l4-4-4-4"/><path d="M12 20h9"/><path d="M4 4h9"/></svg>
+          Conversor PNG→WebP
+        </a>
+      </li>
+      <li>
+        <a href="#organizador" id="nav-organizador">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M3 7a2 2 0 012-2h2l2 3h9a2 2 0 012 2v7a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/></svg>
+          Organizador de Pastas
+        </a>
+      </li>
+      <li>
+        <a href="#qrcode" id="nav-qrcode">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="3" height="3"/><rect x="18" y="18" width="3" height="3"/><rect x="14" y="18" width="3" height="3"/><rect x="18" y="14" width="3" height="3"/></svg>
+          Gerador de QR Code
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="page-wrapper">
+
+    <!-- ════════════════════ HERO ════════════════════ -->
+    <section class="hero" id="hero">
+      <div class="hero-eyebrow">● Ferramentas Locais</div>
+      <h1 class="hero-title">Seu <span>Hub de Programas</span><br>local</h1>
+      <p class="hero-desc">Scripts Python acessíveis em uma interface moderna. Sem instalação extra, sem complicação.</p>
+      <div class="hero-badges">
+        <span class="badge">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Conversor PNG → WebP
+        </span>
+        <span class="badge">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Organizador de Pastas
+        </span>
+        <span class="badge">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Gerador de QR Code
+        </span>
+      </div>
+    </section>
+
+    <!-- ════════════ SECTION: PNG → WebP ════════════ -->
+    <div class="section-divider"></div>
+    <section class="tool-section" id="conversor">
+      <div class="section-header">
+        <div class="section-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8">
+            <rect x="3" y="3" width="18" height="18" rx="3"/>
+            <circle cx="8" cy="8" r="2"/>
+            <polyline points="21 15 16 10 5 21"/>
+          </svg>
+        </div>
+        <div class="section-info">
+          <h2>Conversor PNG → WebP</h2>
+          <p>Converta imagens PNG, JPG ou JPEG para o formato WebP com redimensionamento e qualidade ajustáveis.</p>
+        </div>
+      </div>
+
+      <div class="grid-2">
+
+        <!-- Coluna esquerda: Upload -->
+        <div class="card">
+          <div class="card-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            Arquivos
+          </div>
+
+          <div class="upload-zone" id="conv-upload-zone">
+            <div class="upload-zone-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            </div>
+            <div class="upload-zone-text">Clique ou arraste imagens aqui</div>
+            <div class="upload-zone-hint">PNG, JPG, JPEG — máx. 50 MB por arquivo</div>
+            <input type="file" id="conv-file-input" multiple accept=".png,.jpg,.jpeg">
+          </div>
+
+          <div class="file-list" id="conv-file-list"></div>
+
+          <div id="conv-alert" class="alert"></div>
+        </div>
+
+        <!-- Coluna direita: Configurações -->
+        <div class="card">
+          <div class="card-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+            Configurações
+          </div>
+
+          <!-- Redimensionamento -->
+          <div class="form-group">
+            <label class="form-label">Redimensionamento</label>
+            <div class="toggle-group">
+              <button class="toggle-btn active" data-resize="original" onclick="setResizeMode(this,'original')">Original</button>
+              <button class="toggle-btn" data-resize="percentage" onclick="setResizeMode(this,'percentage')">Porcentagem</button>
+              <button class="toggle-btn" data-resize="pixels" onclick="setResizeMode(this,'pixels')">Pixels</button>
+            </div>
+          </div>
+
+          <!-- Porcentagem -->
+          <div class="form-group" id="conv-percent-ctrl" style="display:none">
+            <label class="form-label">Porcentagem</label>
+            <div class="slider-row">
+              <input type="range" id="conv-percent-slider" min="10" max="200" value="100">
+              <span class="slider-val" id="conv-percent-val">100%</span>
+            </div>
+          </div>
+
+          <!-- Pixels -->
+          <div id="conv-pixels-ctrl" style="display:none">
+            <div class="grid-2" style="gap:12px">
+              <div class="form-group mb-0">
+                <label class="form-label">Largura (px)</label>
+                <input type="number" id="conv-width" class="form-control" placeholder="auto" min="1">
+              </div>
+              <div class="form-group mb-0">
+                <label class="form-label">Altura (px)</label>
+                <input type="number" id="conv-height" class="form-control" placeholder="auto" min="1">
+              </div>
+            </div>
+          </div>
+
+          <!-- Qualidade -->
+          <div class="form-group mt-12">
+            <label class="form-label">Qualidade WebP</label>
+            <div class="slider-row">
+              <input type="range" id="conv-quality-slider" min="1" max="100" value="85">
+              <span class="slider-val" id="conv-quality-val">85</span>
+            </div>
+          </div>
+
+          <!-- Pasta de saída -->
+          <div class="form-group">
+            <label class="form-label">Pasta de saída</label>
+            <div class="input-row">
+              <input type="text" id="conv-output-folder" class="form-control" placeholder="Nenhuma pasta selecionada" readonly>
+              <button class="btn btn-secondary" id="conv-folder-btn" onclick="selectOutputFolder()">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M3 7a2 2 0 012-2h2l2 3h9a2 2 0 012 2v7a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/></svg>
+                Selecionar
+              </button>
+            </div>
+          </div>
+
+          <!-- Botões ação -->
+          <div class="flex gap-8 mt-8">
+            <button class="btn btn-primary w-full" id="conv-btn" onclick="startConversion()">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M4 16l4-4-4-4"/><path d="M12 20h9"/><path d="M4 4h9"/></svg>
+              Converter
+            </button>
+            <button class="btn btn-secondary" id="conv-open-btn" onclick="openOutputFolder()" style="display:none" title="Abrir pasta de saída">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Resultados da conversão -->
+      <div class="results-box" id="conv-results">
+        <div class="results-title">Resultados da Conversão</div>
+        <div id="conv-results-list"></div>
+      </div>
+    </section>
+
+    <!-- ════════════ SECTION: Organizador ════════════ -->
+    <div class="section-divider"></div>
+    <section class="tool-section" id="organizador">
+      <div class="section-header">
+        <div class="section-icon" style="background: rgba(0,230,118,0.1); border-color: rgba(0,230,118,0.25);">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" style="stroke: var(--green);">
+            <path d="M3 7a2 2 0 012-2h2l2 3h9a2 2 0 012 2v7a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/>
+            <line x1="9" y1="12" x2="15" y2="12"/>
+            <line x1="12" y1="9" x2="12" y2="15"/>
+          </svg>
+        </div>
+        <div class="section-info">
+          <h2>Organizador de Pastas</h2>
+          <p>Selecione uma pasta e organize automaticamente seus arquivos em subpastas por tipo.</p>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <!-- Coluna esquerda -->
+        <div class="card">
+          <div class="card-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M3 7a2 2 0 012-2h2l2 3h9a2 2 0 012 2v7a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/></svg>
+            Pasta a Organizar
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Selecione a pasta de origem</label>
+            <div class="input-row">
+              <input type="text" id="org-folder" class="form-control" placeholder="Nenhuma pasta selecionada" readonly>
+              <button class="btn btn-secondary" onclick="selectOrgFolder()">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M3 7a2 2 0 012-2h2l2 3h9a2 2 0 012 2v7a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/></svg>
+                Selecionar
+              </button>
+            </div>
+          </div>
+
+          <div class="alert alert-info show" style="margin-top: 8px;">
+            <strong>ℹ️ Atenção:</strong> os arquivos serão movidos para subpastas dentro da pasta selecionada. Um backup automático é criado em <code>backup_original</code>.
+          </div>
+
+          <div class="flex gap-8 mt-16">
+            <button class="btn btn-green w-full" id="org-btn" onclick="startOrganize()" disabled>
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+              Organizar Arquivos
+            </button>
+          </div>
+
+          <div id="org-alert" class="alert mt-8"></div>
+          <div class="progress-bar-wrap" id="org-progress"><div class="progress-bar-fill" id="org-progress-fill"></div></div>
+        </div>
+
+        <!-- Coluna direita: tipos suportados -->
+        <div class="card">
+          <div class="card-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Tipos de Arquivo Suportados
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Documentos</label>
+            <div class="ext-tags">
+              <span class="ext-tag pdf">PDF</span>
+              <span class="ext-tag doc">DOC</span>
+              <span class="ext-tag doc">DOCX</span>
+              <span class="ext-tag doc">TXT</span>
+              <span class="ext-tag sheet">XLS</span>
+              <span class="ext-tag sheet">XLSX</span>
+              <span class="ext-tag doc">PPT</span>
+              <span class="ext-tag doc">PPTX</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Mídia</label>
+            <div class="ext-tags">
+              <span class="ext-tag img">JPG</span>
+              <span class="ext-tag img">JPEG</span>
+              <span class="ext-tag img">PNG</span>
+              <span class="ext-tag audio">MP3</span>
+              <span class="ext-tag video">MP4</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Comprimidos</label>
+            <div class="ext-tags">
+              <span class="ext-tag zip">ZIP</span>
+              <span class="ext-tag zip">RAR</span>
+              <span class="ext-tag zip">7Z</span>
+            </div>
+          </div>
+
+          <div style="margin-top: 8px; padding: 10px; background: rgba(0,230,118,0.05); border: 1px solid rgba(0,230,118,0.15); border-radius: 6px; font-size: 0.78rem; color: var(--text-muted);">
+            Arquivos com extensões não listadas são ignorados.
+          </div>
+        </div>
+      </div>
+
+      <!-- Log da organização -->
+      <div class="organize-log" id="org-log"></div>
+    </section>
+
+    <!-- ════════════ SECTION: QR Code ════════════ -->
+    <div class="section-divider"></div>
+    <section class="tool-section" id="qrcode">
+      <div class="section-header">
+        <div class="section-icon" style="background: rgba(105,255,71,0.08); border-color: rgba(105,255,71,0.2);">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" style="stroke: var(--green-bright);">
+            <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+            <rect x="3" y="14" width="7" height="7" rx="1"/>
+            <rect x="14" y="14" width="3" height="3"/><rect x="18" y="18" width="3" height="3"/>
+            <rect x="14" y="18" width="3" height="3"/><rect x="18" y="14" width="3" height="3"/>
+          </svg>
+        </div>
+        <div class="section-info">
+          <h2>Gerador de QR Code</h2>
+          <p>Gere QR Codes a partir de URLs, textos ou qualquer string. Baixe em PNG ou SVG.</p>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <!-- Coluna esquerda: Input -->
+        <div class="card">
+          <div class="card-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+            Conteúdo
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Texto ou URL</label>
+            <textarea id="qr-text" class="form-control" rows="4" placeholder="https://exemplo.com ou qualquer texto..." style="resize:vertical; min-height: 100px;"></textarea>
+          </div>
+
+          <div class="grid-2" style="gap:12px">
+            <div class="form-group mb-0">
+              <label class="form-label">Tamanho (px)</label>
+              <input type="number" id="qr-size" class="form-control" value="256" min="64" max="1024" step="32">
+            </div>
+            <div class="form-group mb-0">
+              <label class="form-label">Margem</label>
+              <input type="number" id="qr-margin" class="form-control" value="4" min="0" max="20">
+            </div>
+          </div>
+
+          <div class="form-group mt-12">
+            <label class="form-label">Cor do QR</label>
+            <div class="flex gap-8 items-center">
+              <input type="color" id="qr-dark" value="#000000" class="form-control" style="width:48px; height:36px; padding:2px; cursor:pointer;">
+              <span class="form-label mb-0" style="margin-bottom:0; font-size:0.78rem;">Fundo</span>
+              <input type="color" id="qr-light" value="#ffffff" class="form-control" style="width:48px; height:36px; padding:2px; cursor:pointer;">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Nível de Correção de Erro</label>
+            <select id="qr-ecc" class="form-control">
+              <option value="L">L — Baixo (7%)</option>
+              <option value="M" selected>M — Médio (15%)</option>
+              <option value="Q">Q — Quartil (25%)</option>
+              <option value="H">H — Alto (30%)</option>
+            </select>
+          </div>
+
+          <div class="flex gap-8 mt-8">
+            <button class="btn btn-primary w-full" onclick="generateQR()">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              Gerar QR Code
+            </button>
+          </div>
+
+          <div id="qr-alert" class="alert mt-8"></div>
+        </div>
+
+        <!-- Coluna direita: Preview + Download -->
+        <div class="card" style="display:flex; flex-direction:column; gap:16px;">
+          <div class="card-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>
+            Preview
+          </div>
+
+          <div id="qr-preview">
+            <div class="qr-placeholder">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5">
+                <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+                <rect x="3" y="14" width="7" height="7" rx="1"/>
+              </svg>
+              <p>O QR Code aparecerá aqui</p>
+            </div>
+          </div>
+
+          <div class="flex gap-8" id="qr-download-btns" style="display:none">
+            <button class="btn btn-green w-full" onclick="downloadQR('png')">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Baixar PNG
+            </button>
+            <button class="btn btn-secondary" onclick="downloadQR('svg')" title="Baixar SVG">
+              SVG
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════ FOOTER ════════════════════ -->
+    <footer class="footer">
+      <p>⚡ Hub de Programas — Desenvolvido localmente | Backend: <span>Python Flask</span> · QR: <span>qrcodejs</span></p>
+    </footer>
+
+  </div><!-- /page-wrapper -->
+
+  <!-- QR Code library -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+
+  <script>
+  "use strict";
+  /* ════════════════════════════════════════════════
+     SHARED STATE
+  ════════════════════════════════════════════════ */
+  const API = "http://127.0.0.1:5000";
+
+  /* ── Navbar active highlight on scroll ── */
+  const navLinks = document.querySelectorAll('.navbar-links a');
+  const sections = ['conversor', 'organizador', 'qrcode'];
+
+  function updateActiveNav() {
+    const scrollY = window.scrollY + 100;
+    let current = '';
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && el.offsetTop <= scrollY) current = id;
+    });
+    navLinks.forEach(a => {
+      const href = a.getAttribute('href').replace('#', '');
+      a.classList.toggle('active', href === current);
+    });
+  }
+
+  window.addEventListener('scroll', updateActiveNav, { passive: true });
+
+  /* ════════════════════════════════════════════════
+     CONVERSOR PNG → WebP
+  ════════════════════════════════════════════════ */
+  const convState = {
+    files: [],
+    outputFolder: '',
+    resizeMode: 'original',
+    quality: 85,
+    percent: 100,
+    width: '',
+    height: ''
+  };
+
+  /* Upload Zone */
+  const convZone = document.getElementById('conv-upload-zone');
+  const convInput = document.getElementById('conv-file-input');
+
+  convZone.addEventListener('click', () => convInput.click());
+  convZone.addEventListener('dragover', e => { e.preventDefault(); convZone.classList.add('dragover'); });
+  convZone.addEventListener('dragleave', () => convZone.classList.remove('dragover'));
+  convZone.addEventListener('drop', e => {
+    e.preventDefault();
+    convZone.classList.remove('dragover');
+    addConvFiles(Array.from(e.dataTransfer.files));
+  });
+  convInput.addEventListener('change', e => { addConvFiles(Array.from(e.target.files)); convInput.value = ''; });
+
+  function addConvFiles(newFiles) {
+    const valid = newFiles.filter(f => {
+      const ext = f.name.toLowerCase().slice(f.name.lastIndexOf('.'));
+      return ['.png', '.jpg', '.jpeg'].includes(ext) && f.size <= 50 * 1024 * 1024;
+    });
+    const invalid = newFiles.length - valid.length;
+    convState.files.push(...valid);
+    renderConvList();
+    if (invalid > 0) showAlert('conv-alert', `${invalid} arquivo(s) inválido(s) ignorado(s) (formato ou tamanho).`, 'alert-error');
+  }
+
+  function removeConvFile(i) {
+    convState.files.splice(i, 1);
+    renderConvList();
+  }
+
+  function renderConvList() {
+    const list = document.getElementById('conv-file-list');
+    list.innerHTML = convState.files.map((f, i) => `
+      <div class="file-item">
+        <span class="file-item-icon"></span>
+        <span class="file-item-name" title="${f.name}">${f.name}</span>
+        <button class="file-item-remove" onclick="removeConvFile(${i})" title="Remover">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+    `).join('');
+  }
+
+  /* Resize Mode */
+  function setResizeMode(btn, mode) {
+    convState.resizeMode = mode;
+    document.querySelectorAll('.toggle-btn[data-resize]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('conv-percent-ctrl').style.display = mode === 'percentage' ? '' : 'none';
+    document.getElementById('conv-pixels-ctrl').style.display  = mode === 'pixels'     ? '' : 'none';
+  }
+
+  /* Quality slider */
+  const convQSlider = document.getElementById('conv-quality-slider');
+  convQSlider.addEventListener('input', e => {
+    convState.quality = parseInt(e.target.value);
+    document.getElementById('conv-quality-val').textContent = e.target.value;
+  });
+
+  /* Percent slider */
+  const convPSlider = document.getElementById('conv-percent-slider');
+  convPSlider.addEventListener('input', e => {
+    convState.percent = parseInt(e.target.value);
+    document.getElementById('conv-percent-val').textContent = e.target.value + '%';
+  });
+
+  /* Pixels */
+  document.getElementById('conv-width').addEventListener('change', e => { convState.width = e.target.value; });
+  document.getElementById('conv-height').addEventListener('change', e => { convState.height = e.target.value; });
+
+  /* Folder Selection via Python backend (tkinter dialog) */
+  async function selectOutputFolder() {
+    try {
+      const r = await fetch(`${API}/api/select-folder`, { method: 'POST' });
+      const data = await r.json();
+      if (data.folder) {
+        convState.outputFolder = data.folder;
+        document.getElementById('conv-output-folder').value = data.folder;
+        document.getElementById('conv-open-btn').style.display = '';
+        showAlert('conv-alert', '✓ Pasta selecionada: ' + data.folder, 'alert-success');
+      }
+    } catch {
+      showAlert('conv-alert', '⚠ Servidor offline. Verifique se o server.py está rodando.', 'alert-error');
+    }
+  }
+
+  /* Open folder in Explorer */
+  async function openOutputFolder() {
+    if (!convState.outputFolder) return;
+    try {
+      await fetch(`${API}/api/open-folder`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ folder: convState.outputFolder })
+      });
+    } catch {}
+  }
+
+  /* Convert */
+  async function startConversion() {
+    if (convState.files.length === 0) {
+      showAlert('conv-alert', '⚠ Selecione pelo menos um arquivo.', 'alert-error'); return;
+    }
+    const btn = document.getElementById('conv-btn');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span> Convertendo...';
+
+    const results = document.getElementById('conv-results');
+    const resList = document.getElementById('conv-results-list');
+    results.classList.remove('show');
+
+    const form = new FormData();
+    convState.files.forEach(f => form.append('files', f));
+    form.append('resize_mode', convState.resizeMode);
+    form.append('quality', convState.quality);
+    form.append('output_dir', convState.outputFolder);
+    form.append('percent_value', convState.percent);
+    form.append('width_value', convState.width);
+    form.append('height_value', convState.height);
+
+    try {
+      const r = await fetch(`${API}/api/convert`, { method: 'POST', body: form });
+      const data = await r.json();
+
+      if (r.ok) {
+        resList.innerHTML = data.results.map(res => `
+          <div class="result-item ${res.success ? 'ok' : 'fail'}">
+            ${res.original} → ${res.converted || 'Erro'}
+            ${res.error ? `<br><small>${res.error}</small>` : ''}
+          </div>
+        `).join('');
+        results.classList.add('show');
+        showAlert('conv-alert', `✓ ${data.count} arquivo(s) convertido(s) com sucesso!`, 'alert-success');
+        convState.files = [];
+        renderConvList();
+      } else {
+        showAlert('conv-alert', 'Erro: ' + data.error, 'alert-error');
+      }
+    } catch {
+      showAlert('conv-alert', '⚠ Servidor offline. Inicie o server.py primeiro.', 'alert-error');
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M4 16l4-4-4-4"/><path d="M12 20h9"/><path d="M4 4h9"/></svg> Converter';
+    }
+  }
+
+  /* ════════════════════════════════════════════════
+     ORGANIZADOR DE PASTAS
+  ════════════════════════════════════════════════ */
+  let orgFolder = '';
+
+  async function selectOrgFolder() {
+    try {
+      const r = await fetch(`${API}/api/select-folder`, { method: 'POST' });
+      const data = await r.json();
+      if (data.folder) {
+        orgFolder = data.folder;
+        document.getElementById('org-folder').value = data.folder;
+        document.getElementById('org-btn').disabled = false;
+        showAlert('org-alert', '✓ Pasta selecionada.', 'alert-success');
+      }
+    } catch {
+      showAlert('org-alert', '⚠ Servidor offline. Verifique se o server.py está rodando.', 'alert-error');
+    }
+  }
+
+  async function startOrganize() {
+    if (!orgFolder) { showAlert('org-alert', '⚠ Selecione uma pasta primeiro.', 'alert-error'); return; }
+
+    if (!confirm(`Organizar os arquivos em:\n${orgFolder}\n\nOs arquivos serão movidos para subpastas. Continuar?`)) return;
+
+    const btn = document.getElementById('org-btn');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span> Organizando...';
+
+    const progress = document.getElementById('org-progress');
+    const fill = document.getElementById('org-progress-fill');
+    const log = document.getElementById('org-log');
+    progress.classList.add('show');
+    log.classList.add('show');
+    log.innerHTML = '<span class="log-done">Iniciando organização...</span>\n';
+
+    // Animate progress
+    let pct = 5;
+    fill.style.width = pct + '%';
+
+    try {
+      const r = await fetch(`${API}/api/organize`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ folder: orgFolder })
+      });
+      const data = await r.json();
+
+      if (r.ok && data.log) {
+        fill.style.width = '100%';
+        log.innerHTML = data.log.map(line => {
+          if (line.startsWith('✓')) return `<span class="log-ok">${line}</span>`;
+          if (line.startsWith('⏭')) return `<span class="log-skip">${line}</span>`;
+          if (line.startsWith('⚠') || line.startsWith('❌')) return `<span class="log-err">${line}</span>`;
+          return `<span class="log-done">${line}</span>`;
+        }).join('\n');
+        log.scrollTop = log.scrollHeight;
+        showAlert('org-alert', `✓ Organização concluída: ${data.moved} arquivo(s) movido(s).`, 'alert-success');
+      } else {
+        showAlert('org-alert', 'Erro: ' + (data.error || 'Desconhecido'), 'alert-error');
+      }
+    } catch {
+      showAlert('org-alert', '⚠ Servidor offline. Inicie o server.py primeiro.', 'alert-error');
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg> Organizar Arquivos';
+    }
+  }
+
+  /* ════════════════════════════════════════════════
+     GERADOR DE QR CODE (pure JS — offline capable)
+  ════════════════════════════════════════════════ */
+  let qrInstance = null;
+
+  function generateQR() {
+    const text = document.getElementById('qr-text').value.trim();
+    if (!text) { showAlert('qr-alert', '⚠ Digite um texto ou URL.', 'alert-error'); return; }
+
+    // Verifica se a biblioteca foi carregada
+    if (typeof QRCode === 'undefined') {
+      showAlert('qr-alert', '⚠ Biblioteca QR Code não carregada. Verifique sua conexão com a internet.', 'alert-error');
+      return;
+    }
+
+    const size       = parseInt(document.getElementById('qr-size').value)   || 256;
+    const margin     = parseInt(document.getElementById('qr-margin').value);
+    const dark       = document.getElementById('qr-dark').value;
+    const light      = document.getElementById('qr-light').value;
+    const eccLevel   = document.getElementById('qr-ecc').value;
+
+    const eccMap = { L: QRCode.CorrectLevel.L, M: QRCode.CorrectLevel.M, Q: QRCode.CorrectLevel.Q, H: QRCode.CorrectLevel.H };
+
+    const preview = document.getElementById('qr-preview');
+
+    // Limpa instância anterior corretamente
+    if (qrInstance) {
+      try { qrInstance.clear(); } catch(e) {}
+      qrInstance = null;
+    }
+    preview.innerHTML = '';
+    preview.classList.add('has-qr');
+
+    // Oculta botões durante geração
+    document.getElementById('qr-download-btns').style.display = 'none';
+
+    try {
+      qrInstance = new QRCode(preview, {
+        text,
+        width: size,
+        height: size,
+        colorDark: dark,
+        colorLight: light,
+        correctLevel: eccMap[eccLevel] || QRCode.CorrectLevel.M
+      });
+
+      // A lib qrcodejs é assíncrona internamente; aguarda o canvas ser criado
+      setTimeout(() => {
+        const canvas = preview.querySelector('canvas');
+        if (canvas) {
+          // Aplica margem via padding no container
+          if (margin > 0) {
+            canvas.style.padding = (margin * 4) + 'px';
+            canvas.style.background = light;
+            canvas.style.boxSizing = 'content-box';
+          }
+          document.getElementById('qr-download-btns').style.display = 'flex';
+          const al = document.getElementById('qr-alert');
+          al.className = 'alert';
+        } else {
+          showAlert('qr-alert', '⚠ QR Code gerado mas canvas não encontrado.', 'alert-error');
+        }
+      }, 100);
+
+    } catch(e) {
+      preview.innerHTML = '<div class="qr-placeholder"><p>Erro ao gerar</p></div>';
+      preview.classList.remove('has-qr');
+      showAlert('qr-alert', 'Erro ao gerar QR: ' + e.message, 'alert-error');
+    }
+  }
+
+  function downloadQR(format) {
+    const preview = document.getElementById('qr-preview');
+    const canvas = preview.querySelector('canvas');
+    if (!canvas) { showAlert('qr-alert', 'Gere um QR Code primeiro.', 'alert-error'); return; }
+
+    if (format === 'png') {
+      const a = document.createElement('a');
+      a.href = canvas.toDataURL('image/png');
+      a.download = 'qrcode.png';
+      a.click();
+    } else if (format === 'svg') {
+      // Build SVG from canvas
+      const url = canvas.toDataURL('image/png');
+      const size = canvas.width;
+      const svgContent = `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}"><image href="${url}" width="${size}" height="${size}"/></svg>`;
+      const blob = new Blob([svgContent], { type: 'image/svg+xml' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'qrcode.svg';
+      a.click();
+    }
+  }
+
+  /* Live preview on Enter in QR text */
+  document.getElementById('qr-text').addEventListener('keydown', e => {
+    if (e.ctrlKey && e.key === 'Enter') generateQR();
+  });
+
+  /* ════════════════════════════════════════════════
+     UTILS
+  ════════════════════════════════════════════════ */
+  function showAlert(id, msg, cls) {
+    const el = document.getElementById(id);
+    el.textContent = msg;
+    el.className = `alert show ${cls}`;
+    clearTimeout(el._timer);
+    el._timer = setTimeout(() => { el.className = 'alert'; }, 6000);
+  }
+  </script>
+</body>
+</html>
